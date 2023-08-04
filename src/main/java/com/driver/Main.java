@@ -36,3 +36,4 @@ public class Main {
         System.out.println("Maximum meetings you can attend in a day is " + workspace.findMaxMeetings());
     }
 }
+

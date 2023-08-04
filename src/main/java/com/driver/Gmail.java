@@ -4,17 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-class  mail{
-    Date date;
-    String snderId;
-    String message;
 
-    public mail(Date date, String sender, String message) {
-        this.date=date;
-        this.snderId=sender;
-        this.message=message;
-    }
-}
 public class Gmail extends Email {
 
    private ArrayList<mail>Inbox;
@@ -38,13 +28,13 @@ public class Gmail extends Email {
         // 1. Each mail in the inbox is distinct.
         // 2. The mails are received in non-decreasing order. This means that the date of a new mail is greater than equal to the dates of mails received already.
 
-        if(Inbox.size()>=this.inboxCapacity){
+        if(Inbox.size()==this.inboxCapacity){
 
-            Trash.add( Inbox.remove(0));
+            Trash.add(Inbox.remove(0));
         }
-        if(this.inboxCapacity-Inbox.size()>=1){
+
             this.Inbox.add(new mail(date,sender,message));
-        }
+
     }
 
     public void deleteMail(String message){
@@ -54,6 +44,7 @@ public class Gmail extends Email {
           mail mt=Inbox.get(i);
           if(mt.message.equals(message)){
               Trash.add(Inbox.remove(i));
+              break;
           }
       }
     }
@@ -64,7 +55,8 @@ public class Gmail extends Email {
 
         if(Inbox.size()==0)return null;
 
-        return Inbox.get(0).message;
+        return Inbox.get(Inbox.size()-1).message;
+
     }
 
     public String findOldestMessage(){
@@ -72,7 +64,7 @@ public class Gmail extends Email {
         // Else, return the message of the oldest mail present in the inbox
        if(Inbox.size()==0)return null;
 
-       return Inbox.get(Inbox.size()-1).message;
+       return Inbox.get(0).message;
     }
 
     public int findMailsBetweenDates(Date start, Date end){
